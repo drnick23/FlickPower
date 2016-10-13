@@ -48,7 +48,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         tvOverview.setText(movie.getOverview());
 
         Log.d("DEBUG", movie.getPosterPath());
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
+        //Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
+        Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
 
         return convertView;
     }

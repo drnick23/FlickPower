@@ -2,6 +2,8 @@ package com.example.nick.flickpower.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +78,10 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             // populate data
             tvTitle.setText(movie.getOriginalTitle());
             tvOverview.setText(movie.getOverview());
-            tvScore.setText(movie.getScore().toString());
+
+            // TODO: Try to display score like <big>4.34</big> /10
+            Spannable scoreText = new SpannableString(movie.getScore().toString());
+            tvScore.setText(scoreText, TextView.BufferType.SPANNABLE);
 
             String imagePath;
 

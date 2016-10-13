@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#000"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="225dp"
+        android:layout_width="342dp"
+        android:layout_height="192dp"
         android:id="@+id/ivMovieImage"
         tools:src="@mipmap/ic_launcher"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/tvTitle"
+        android:layout_alignBottom="@+id/tvOverview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -24,8 +23,10 @@
         android:id="@+id/tvTitle"
         android:textColor="#FFF"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/ivMovieImage"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,25 +39,15 @@
         android:layout_toRightOf="@+id/ivMovieImage"
         android:layout_toEndOf="@+id/ivMovieImage" />
 
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px"
-        android:layout_below="@+id/ivMovieImage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="418dp"
-        android:layout_marginStart="418dp"
-        android:id="@+id/space" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="4.34"
         android:id="@+id/tvScore"
-        android:layout_above="@+id/tvOverview"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#FFF" />
+        android:textColor="#FFF"
+        android:layout_below="@+id/ivMovieImage"
+        android:layout_alignRight="@+id/tvOverview"
+        android:layout_alignEnd="@+id/tvOverview" />
 
 </RelativeLayout>

@@ -39,4 +39,15 @@
         android:layout_toRightOf="@+id/ivMovieImage"
         android:layout_toEndOf="@+id/ivMovieImage" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="4.34"
+        android:id="@+id/tvScore"
+        android:textColor="#FFF"
+        android:layout_below="@+id/ivMovieImage"
+        android:layout_alignRight="@+id/tvOverview"
+        android:layout_alignEnd="@+id/tvOverview" />
+
 </RelativeLayout>

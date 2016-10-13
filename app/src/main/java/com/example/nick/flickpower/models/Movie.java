@@ -10,6 +10,12 @@ import java.util.ArrayList;
  * Created by nick on 10/11/16.
  */
 public class Movie {
+
+    public enum Popularity {
+        LOW, HIGH
+    }
+    public Popularity popularity;
+
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342%s", posterPath);
     }
@@ -44,6 +50,11 @@ public class Movie {
         this.overview = jsonObject.getString("overview");
         this.score = jsonObject.getDouble("vote_average");
         this.voteCount = jsonObject.getInt("vote_count");
+        if (this.score >= 5) {
+            this.popularity = Popularity.HIGH;
+        } else {
+            this.popularity = Popularity.LOW;
+        }
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array) {

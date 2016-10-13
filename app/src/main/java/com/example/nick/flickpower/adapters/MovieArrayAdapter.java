@@ -1,6 +1,7 @@
 package com.example.nick.flickpower.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +48,21 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         tvTitle.setText(movie.getOriginalTitle());
         tvOverview.setText(movie.getOverview());
 
-        Log.d("DEBUG", movie.getPosterPath());
-        //Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
-        Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+        String imagePath;
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            imagePath = movie.getPosterPath();
+            Log.d("DEBUG", "Portrait mode image");
+
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            imagePath = movie.getBackdropPath();
+            Log.d("DEBUG", "Landscape mode image");
+        } else {
+            imagePath = "";
+        }
+        Log.d("DEBUG", imagePath);
+        // Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
+        Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
 
         return convertView;
     }

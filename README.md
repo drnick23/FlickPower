@@ -2,7 +2,9 @@
 
 FlickPower shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: 1.75 hours spent in total
+Time spent: 5.75 hours spent in total
+First session (video walkthrough): 1.75 hours
+Second session (layouts): 4 hours
 
 ## User Stories
 
@@ -17,8 +19,8 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 * [ ] User can **pull-to-refresh** popular stream to get the latest movies.
-* [ ] Display a nice default [placeholder graphic](http://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#configuring-picasso) for each image during loading.
-* [ ] Improved the user interface through styling and coloring.
+* [x] Display a nice default [placeholder graphic](http://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#configuring-picasso) for each image during loading.
+* [x] Improved the user interface through styling and coloring.
 
 The following **bonus** features are implemented:
 
@@ -47,6 +49,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+- It was a little frustrating to want to drag and drop images into the res/drawables folder, but Android Studio wouldn't let me. In the end I put it in using Finder in the project directory and then Android Studio would pick up the change, but it wasn't clear how to do this simple task at first. Seems like I'm missing something.
 
 ## Open-source libraries used
 

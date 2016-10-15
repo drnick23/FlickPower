@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 /**
  * Created by nick on 10/11/16.
  */
@@ -88,16 +90,20 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                 imagePath = movie.getPosterPath();
                 Log.d("DEBUG", "Portrait mode image");
+                // only apply corner transformation on portrain images
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).transform(new RoundedCornersTransformation(16, 16)).into(ivImage);
 
-            } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            }
+            // landscape mode
+            else {
                 imagePath = movie.getBackdropPath();
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+
                 Log.d("DEBUG", "Landscape mode image");
-            } else {
-                imagePath = "";
             }
             Log.d("DEBUG", imagePath);
             // Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
-            Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+
         }
         else if (movie.popularity == Movie.Popularity.HIGH) {
             // find the image view

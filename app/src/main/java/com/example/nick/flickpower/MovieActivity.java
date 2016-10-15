@@ -1,18 +1,22 @@
 package com.example.nick.flickpower;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.nick.flickpower.models.Movie;
 import com.example.nick.flickpower.adapters.MovieArrayAdapter;
+import com.example.nick.flickpower.models.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -36,6 +40,13 @@ public class MovieActivity extends AppCompatActivity {
         movies = new ArrayList<>();
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = movies.get(position);
+                onMovieItemClick(movie);
+            }
+        });
 
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -61,5 +72,23 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+
+
+    // Intent navigations
+    public void launchMovieDetailActivity(Movie movie) {
+        Intent i = new Intent(MovieActivity.this, MovieDetailActivity.class);
+        i.putExtra("movie", Parcels.wrap(movie));
+        startActivity(i);
+    }
+
+    public void onMovieItemClick(Movie movie) {
+        Log.d("DEBUG", "Picked movie");
+        Log.d("DEBUG", movie.toString());
+        launchMovieDetailActivity(movie);
+    }
+
+    public void onLayoutClick(View view) {
+        Log.d("DEBUG", "Item was clicked");
     }
 }

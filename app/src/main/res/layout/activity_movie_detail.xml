@@ -39,6 +39,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:srcCompat="@drawable/movie_placeholder"
+        android:id="@+id/ivMovieImage"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:scaleType="centerCrop" />
+
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,13 +61,16 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rbMovieScore"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:layout_alignTop="@+id/tvTitle">
+        android:layout_marginBottom="0dp"
+        android:layout_below="@+id/ivMovieImage">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+        <TextView
+            android:id="@+id/tvSynopsis"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:textColor="#FFF"
+            android:text="Pulp Fiction is a 1994 American neo-noir crime black comedy film written and directed by Quentin Tarantino, from a story by Tarantino and Roger Avary.[4] Tarantino's second feature film, it is iconic for its eclectic dialogue, ironic mix of humor and violence, nonlinear storyline, and a host of cinematic allusions and pop culture references. The film was nominated for seven Oscars, including Best Picture; Tarantino and Avary won for Best Original Screenplay. It was also awarded the Palme d'Or at the 1994 Cannes Film Festival. A major critical and commercial success, it revitalized the career of its leading man, John Travolta, who received an Academy Award nomination, as did co-stars Samuel L. Jackson and Uma Thurman.  Directed in a highly stylized manner, Pulp Fiction connects the intersecting storylines of Los Angeles mobsters, fringe players, small-time criminals, and a mysterious briefcase. Considerable screen time is devoted to monologues and casual conversations that reveal the characters' senses of humor and perspectives on life. The film's title refers to the pulp magazines and hardboiled crime novels popular during the mid-20th century, known for their graphic violence and punchy dialogue. Pulp Fiction is self-referential from its opening moments, beginning with a title card that gives two dictionary definitions of &quot;pulp&quot;. The plot, as in many of Tarantino's other works, is presented out of chronological order.  " />
     </ScrollView>
 
 </RelativeLayout>

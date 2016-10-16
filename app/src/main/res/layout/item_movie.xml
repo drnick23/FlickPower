@@ -49,15 +49,14 @@
         android:layout_marginStart="418dp"
         android:id="@+id/space" />
 
-    <TextView
+    <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="4.34"
-        android:id="@+id/tvScore"
-        android:layout_above="@+id/tvOverview"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="#FFF" />
+        android:id="@+id/rbMovieRating"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

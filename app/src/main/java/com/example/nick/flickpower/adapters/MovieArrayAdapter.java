@@ -3,14 +3,13 @@ package com.example.nick.flickpower.adapters;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.PointF;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.nick.flickpower.R;
@@ -77,15 +76,17 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
             TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-            TextView tvScore = (TextView) convertView.findViewById(R.id.tvScore);
+            RatingBar rbMovieScore = (RatingBar) convertView.findViewById(R.id.rbMovieRating);
 
             // populate data
             tvTitle.setText(movie.getOriginalTitle());
             tvOverview.setText(movie.getOverview());
+            rbMovieScore.setRating(movie.getStarRating());
 
             // TODO: Try to display score like <big>4.34</big> /10
-            Spannable scoreText = new SpannableString(movie.getScore().toString());
-            tvScore.setText(scoreText, TextView.BufferType.SPANNABLE);
+            //TextView tvScore = (TextView) convertView.findViewById(R.id.tvScore);
+            //Spannable scoreText = new SpannableString(movie.getScore().toString());
+            //tvScore.setText(scoreText, TextView.BufferType.SPANNABLE);
 
             String imagePath;
 

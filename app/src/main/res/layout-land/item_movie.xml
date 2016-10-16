@@ -11,7 +11,6 @@
         android:layout_height="192dp"
         android:id="@+id/ivMovieImage"
         tools:src="@mipmap/ic_launcher"
-        android:layout_alignBottom="@+id/tvOverview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -39,15 +38,14 @@
         android:layout_toRightOf="@+id/ivMovieImage"
         android:layout_toEndOf="@+id/ivMovieImage" />
 
-    <TextView
+    <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="4.34"
-        android:id="@+id/tvScore"
-        android:textColor="#FFF"
-        android:layout_below="@+id/ivMovieImage"
-        android:layout_alignRight="@+id/tvOverview"
-        android:layout_alignEnd="@+id/tvOverview" />
+        android:layout_below="@+id/tvOverview"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/tvTitle"
+        android:layout_alignRight="@+id/tvTitle"
+        android:id="@+id/rbMovieRating"
+        style="@style/Widget.AppCompat.RatingBar.Indicator" />
 
 </RelativeLayout>

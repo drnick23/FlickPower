@@ -90,7 +90,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/rbMovieScore"
-        android:foregroundTint="#FF0" />
+        android:foregroundTint="#FF0"
+        android:clickable="false"
+        style="@style/Widget.AppCompat.RatingBar.Indicator" />
 
     <ImageView
         android:layout_width="match_parent"

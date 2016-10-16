@@ -3,12 +3,14 @@ package com.example.nick.flickpower.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
 /**
  * Created by nick on 10/11/16.
  */
+@Parcel
 public class Movie {
 
     public enum Popularity {
@@ -36,12 +38,22 @@ public class Movie {
         return score;
     }
 
+    public float getStarRating() {
+        // map movie score out of 10 to a rating out of 5
+        return Float.parseFloat(String.valueOf(score/2));
+    }
+
     String posterPath;
     String backdropPath;
     String originalTitle;
     String overview;
     Double score;
     int voteCount;
+
+    // required by Parceler Library
+    public Movie() {
+
+    }
 
     public Movie(JSONObject jsonObject) throws JSONException {
         this.posterPath = jsonObject.getString("poster_path");

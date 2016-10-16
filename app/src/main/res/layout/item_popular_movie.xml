@@ -44,7 +44,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
         android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
+        android:layout_toStartOf="@+id/imageView"
+        android:shadowColor="#000"
+        android:shadowRadius="16" />
 
     <ImageView
         android:layout_width="65dp"

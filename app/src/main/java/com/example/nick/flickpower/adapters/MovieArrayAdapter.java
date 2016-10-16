@@ -2,6 +2,7 @@ package com.example.nick.flickpower.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.PointF;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
@@ -17,6 +18,9 @@ import com.example.nick.flickpower.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import jp.wasabeef.picasso.transformations.gpu.VignetteFilterTransformation;
 
 /**
  * Created by nick on 10/11/16.
@@ -88,16 +92,20 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                 imagePath = movie.getPosterPath();
                 Log.d("DEBUG", "Portrait mode image");
+                // only apply corner transformation on portrain images
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).transform(new RoundedCornersTransformation(16, 16)).into(ivImage);
 
-            } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            }
+            // landscape mode
+            else {
                 imagePath = movie.getBackdropPath();
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+
                 Log.d("DEBUG", "Landscape mode image");
-            } else {
-                imagePath = "";
             }
             Log.d("DEBUG", imagePath);
             // Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
-            Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+
         }
         else if (movie.popularity == Movie.Popularity.HIGH) {
             // find the image view
@@ -118,7 +126,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
             Log.d("DEBUG","Popular movie");
             //int width = convertView.getWidth();
-            Picasso.with(getContext()).load(imagePath).into(ivImage);
+
+            VignetteFilterTransformation vignetteTransform = new VignetteFilterTransformation(getContext(), new PointF(0.5f, 0.5f), new float[] { 0.0f, 0.0f, 0.0f }, 0f, 0.75f);
+            Picasso.with(getContext()).load(imagePath).transform(vignetteTransform).into(ivImage);
             //Picasso.with(getContext()).load(imagePath).resize(width,0).placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
         }
 

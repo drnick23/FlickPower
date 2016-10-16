@@ -30,6 +30,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Log.d("DEBUG", movie.getOriginalTitle());
 
         TextView title = (TextView) findViewById(R.id.tvTitle);
+        TextView synopsis = (TextView) findViewById(R.id.tvSynopsis);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rbMovieScore);
         ImageView backdropImage = (ImageView) findViewById(R.id.ivBackdrop);
         final ImageView moviePlayImage = (ImageView) findViewById(R.id.ivMovieImage);
@@ -48,6 +49,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         title.setText(movie.getOriginalTitle());
+        synopsis.setText(movie.getOverview());
 
         // convert our movie score out of 10 into a float value out of 5
         ratingBar.setRating(movie.getStarRating());

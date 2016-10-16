@@ -37,7 +37,9 @@
         android:shadowColor="#000"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp" />
+        android:layout_marginTop="34dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <ScrollView
         android:id="@+id/svSynopsis"
@@ -76,7 +78,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:shadowColor="#000"
-                android:shadowRadius="12" />
+                android:shadowRadius="12"
+                android:layout_marginBottom="80dp" />
 
         </LinearLayout>
         </ScrollView>
@@ -86,7 +89,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/rbMovieScore" />
+        android:id="@+id/rbMovieScore"
+        android:foregroundTint="#FF0" />
 
     <ImageView
         android:layout_width="match_parent"

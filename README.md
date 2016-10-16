@@ -5,7 +5,7 @@ FlickPower shows the latest movies currently playing in theaters. The app utiliz
 Time spent: 9.75 hours spent in total
 First session (video walkthrough): 1.75 hours
 Second session (layouts): 4 hours
-Third session (design & activity): 4 hours
+Third session (reading, design & activity): 4 hours
 
 ## User Stories
 

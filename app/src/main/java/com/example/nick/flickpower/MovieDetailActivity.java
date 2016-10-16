@@ -4,8 +4,10 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.nick.flickpower.models.Movie;
@@ -30,7 +32,20 @@ public class MovieDetailActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.tvTitle);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rbMovieScore);
         ImageView backdropImage = (ImageView) findViewById(R.id.ivBackdrop);
-        ImageView moviePlayImage = (ImageView) findViewById(R.id.ivMovieImage);
+        final ImageView moviePlayImage = (ImageView) findViewById(R.id.ivMovieImage);
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.svSynopsis);
+
+
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                Log.d("DEBUG", "scroll changed: " + scrollView.getScrollY());
+                int scrollY = scrollView.getScrollY(); // For ScrollView
+                moviePlayImage.setAlpha((float) (200 - scrollY)/200);
+                //Log.d("DEBUG",String.format("scrolled:%d", scrollY));
+                // DO SOMETHING WITH THE SCROLL COORDINATES
+            }
+        });
 
         title.setText(movie.getOriginalTitle());
 

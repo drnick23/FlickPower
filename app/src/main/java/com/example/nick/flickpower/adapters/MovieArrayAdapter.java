@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import jp.wasabeef.picasso.transformations.gpu.VignetteFilterTransformation;
 
@@ -52,6 +54,25 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         }
     }
 
+    static class MovieItemHolder {
+        @BindView(R.id.ivMovieImage) ImageView ivImage;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvOverview) TextView tvOverview;
+        @BindView(R.id.rbMovieRating) RatingBar rbMovieScore;
+
+        public MovieItemHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    static class PopularMovieItemHolder {
+        @BindView(R.id.ivMovieImage) ImageView ivImage;
+        @BindView(R.id.tvPopularTitle) TextView tvTitle;
+
+        public PopularMovieItemHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -61,76 +82,49 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         if (convertView == null) {
             int type = getItemViewType(position);
             convertView = getInflatedLayoutForType(type);
-            /*
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_movie, parent, false);*/
         }
 
-        int orientation = getContext().getResources().getConfiguration().orientation;
-
+        // less popular movie's get the poster view with text on the side and a small rating showing.
         if (movie.popularity == Movie.Popularity.LOW) {
-            // find the image view
-            ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+
+            MovieItemHolder holder = new MovieItemHolder(convertView);
+
             // clear out the image from convertView
-            ivImage.setImageResource(0);
+            holder.ivImage.setImageResource(0);
+            holder.tvTitle.setText(movie.getOriginalTitle());
+            holder.tvOverview.setText(movie.getOverview());
+            holder.rbMovieScore.setRating(movie.getStarRating());
 
-            TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-            TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-            RatingBar rbMovieScore = (RatingBar) convertView.findViewById(R.id.rbMovieRating);
-
-            // populate data
-            tvTitle.setText(movie.getOriginalTitle());
-            tvOverview.setText(movie.getOverview());
-            rbMovieScore.setRating(movie.getStarRating());
-
-            // TODO: Try to display score like <big>4.34</big> /10
-            //TextView tvScore = (TextView) convertView.findViewById(R.id.tvScore);
-            //Spannable scoreText = new SpannableString(movie.getScore().toString());
-            //tvScore.setText(scoreText, TextView.BufferType.SPANNABLE);
-
-            String imagePath;
-
+            // we load different images and apply different effects depending on orientation
+            int orientation = getContext().getResources().getConfiguration().orientation;
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                imagePath = movie.getPosterPath();
                 Log.d("DEBUG", "Portrait mode image");
-                // only apply corner transformation on portrain images
-                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).transform(new RoundedCornersTransformation(16, 16)).into(ivImage);
-
+                String imagePath = movie.getPosterPath();
+                // apply corner transformation on portrait images
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).transform(new RoundedCornersTransformation(16, 16)).into(holder.ivImage);
             }
-            // landscape mode
-            else {
-                imagePath = movie.getBackdropPath();
-                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
-
+            else { // landscape mode
                 Log.d("DEBUG", "Landscape mode image");
+                String imagePath = movie.getBackdropPath();
+                Picasso.with(getContext()).load(imagePath).fit().centerCrop().placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(holder.ivImage);
             }
-            Log.d("DEBUG", imagePath);
-            // Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
 
         }
+
+        // popular movies get a full-wide image and popular star.
         else if (movie.popularity == Movie.Popularity.HIGH) {
-            // find the image view
-            ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-            // clear out the image from convertView
-            ivImage.setImageResource(0);
-
-            TextView tvTitle = (TextView) convertView.findViewById(R.id.tvPopularTitle);
-            //TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-            //TextView tvScore = (TextView) convertView.findViewById(R.id.tvScore);
-
-            // populate data
-            tvTitle.setText(movie.getOriginalTitle());
-            //tvOverview.setText(movie.getOverview());
-            //tvScore.setText(movie.getScore().toString());
-
-            String imagePath = movie.getBackdropPath();
 
             Log.d("DEBUG","Popular movie");
-            //int width = convertView.getWidth();
+            PopularMovieItemHolder holder = new PopularMovieItemHolder(convertView);
 
+            // clear out the image from convertView
+            holder.ivImage.setImageResource(0);
+            holder.tvTitle.setText(movie.getOriginalTitle());
+
+            // load our full wide image and apply some extra effects
+            String imagePath = movie.getBackdropPath();
             VignetteFilterTransformation vignetteTransform = new VignetteFilterTransformation(getContext(), new PointF(0.5f, 0.5f), new float[] { 0.0f, 0.0f, 0.0f }, 0f, 0.75f);
-            Picasso.with(getContext()).load(imagePath).transform(vignetteTransform).into(ivImage);
-            //Picasso.with(getContext()).load(imagePath).resize(width,0).placeholder(R.drawable.movie_placeholder).error(R.drawable.movie_placeholder).into(ivImage);
+            Picasso.with(getContext()).load(imagePath).transform(vignetteTransform).into(holder.ivImage);
         }
 
         return convertView;

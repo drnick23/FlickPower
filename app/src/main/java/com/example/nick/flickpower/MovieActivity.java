@@ -20,13 +20,16 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class MovieActivity extends AppCompatActivity {
 
+    @BindView(R.id.lvMovies) ListView lvItems;
+
     ArrayList<Movie> movies;
     MovieArrayAdapter movieAdapter;
-    ListView lvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +38,12 @@ public class MovieActivity extends AppCompatActivity {
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
-        lvItems = (ListView) findViewById(R.id.lvMovies);
+        ButterKnife.bind(this);
 
         movies = new ArrayList<>();
         movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
+        // how do I use @OnItemClick from Butterknife without having to refer to the id in the view again?
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

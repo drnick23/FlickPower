@@ -63,6 +63,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 - It was a little frustrating to want to drag and drop images into the res/drawables folder, but Android Studio wouldn't let me. In the end I put it in using Finder in the project directory and then Android Studio would pick up the change, but it wasn't clear how to do this simple task at first. Seems like I'm missing something.
+- First time with Java, so still learning it's differences compared to swift/c/javascript, and how it plays with the IDE.
 
 ## Open-source libraries used
 

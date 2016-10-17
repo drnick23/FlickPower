@@ -64,7 +64,30 @@ public class MovieActivity extends AppCompatActivity {
         };
         api.fetchPopularMovies();
 
-        /*
+    }
+
+
+    // Intent navigations
+    public void launchMovieDetailActivity(Movie movie) {
+        Intent i = new Intent(MovieActivity.this, MovieDetailActivity.class);
+        i.putExtra("movie", Parcels.wrap(movie));
+        startActivity(i);
+    }
+
+    public void onMovieItemClick(Movie movie) {
+        Log.d("DEBUG", "Picked movie");
+        Log.d("DEBUG", movie.toString());
+        launchMovieDetailActivity(movie);
+    }
+
+    public void onLayoutClick(View view) {
+        Log.d("DEBUG", "Item was clicked");
+    }
+}
+
+
+/* for reference of stages of networking went through */
+/*
         // should be a singleton
         OkHttpClient client = new OkHttpClient();
 
@@ -130,23 +153,3 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });*/
-    }
-
-
-    // Intent navigations
-    public void launchMovieDetailActivity(Movie movie) {
-        Intent i = new Intent(MovieActivity.this, MovieDetailActivity.class);
-        i.putExtra("movie", Parcels.wrap(movie));
-        startActivity(i);
-    }
-
-    public void onMovieItemClick(Movie movie) {
-        Log.d("DEBUG", "Picked movie");
-        Log.d("DEBUG", movie.toString());
-        launchMovieDetailActivity(movie);
-    }
-
-    public void onLayoutClick(View view) {
-        Log.d("DEBUG", "Item was clicked");
-    }
-}

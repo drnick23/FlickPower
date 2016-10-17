@@ -10,19 +10,14 @@ import android.widget.ListView;
 
 import com.example.nick.flickpower.adapters.MovieArrayAdapter;
 import com.example.nick.flickpower.models.Movie;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
+
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -52,7 +47,66 @@ public class MovieActivity extends AppCompatActivity {
             }
         });
 
-        AsyncHttpClient client = new AsyncHttpClient();
+        // I get that this isn't the proper way to implement an movies API, but wanted to experiment with
+        // Java interfaces as it's a new concept for me...(Java newbie here...), and wasn't sure how
+        // to do a proper callback class.
+        MoviesAPI api = new MoviesAPI() {
+            @Override
+            void fetchedResult(ArrayList<Movie> movieList) {
+                movies.addAll(movieList);
+                MovieActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        movieAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
+        api.fetchPopularMovies();
+
+        /*
+        // should be a singleton
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // ... check for failure using `isSuccessful` before proceeding
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+                MovieActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONArray movieJsonResults = null;
+                        try {
+                            String responseData = response.body().string();
+                            JSONObject json = new JSONObject(responseData);
+                            movieJsonResults = json.getJSONArray("results");
+                            movies.addAll(Movie.fromJSONArray(movieJsonResults));
+                            movieAdapter.notifyDataSetChanged();
+                            Log.d("DEBUG", movies.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //super.onFailure(call, e);
+            }
+        });*/
+
+        /*AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(url, new JsonHttpResponseHandler(){
             @Override
@@ -75,7 +129,7 @@ public class MovieActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
-        });
+        });*/
     }
 
 
